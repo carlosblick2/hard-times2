@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MoveWithFloor : MonoBehaviour
 {
-    CharacterController Player;
+    public CharacterController Player;
 
     Vector3 groundPosition;
     Vector3 lastGroundPosition;
@@ -26,8 +26,10 @@ public class MoveWithFloor : MonoBehaviour
         {
             RaycastHit hit;
 
-            if (Physics.SphereCast(transform.position, Player.height / 4.2f, -transform.up, out hit))
+            // Change the SphereCast to a Raycast
+            if (Physics.Raycast(transform.position, Vector3.down, out hit, 10))
             {
+                print("PASS");
                 GameObject groundedIn = hit.collider.gameObject;
                 groundName = groundedIn.name;
                 groundPosition = groundedIn.transform.position;
@@ -49,7 +51,6 @@ public class MoveWithFloor : MonoBehaviour
                 lastGroundPosition = groundPosition;
                 lastRot = actualRot;
             }
-
         }
         else if (!Player.isGrounded)
         {
@@ -57,11 +58,10 @@ public class MoveWithFloor : MonoBehaviour
             lastGroundPosition = Vector3.zero;
             lastRot = Quaternion.Euler(0, 0, 0);
         }
-
     }
 
     private void OnDrawGizmos()
     {
-        Gizmos.DrawWireSphere(transform.position, Player.height / 4.2f);
+        Gizmos.DrawWireSphere(transform.position, Player.height);
     }
 }

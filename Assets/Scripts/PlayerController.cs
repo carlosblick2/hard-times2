@@ -48,7 +48,7 @@ public class PlayerController : MonoBehaviour
 
         player.Move(movePlayer * Time.deltaTime);
 
-        Debug.Log(player.velocity.magnitude);
+        //Debug.Log(player.velocity.magnitude);
     }
 
     //Funcion para determinar la direccin a la que mira la camara.
