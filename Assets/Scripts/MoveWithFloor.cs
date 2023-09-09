@@ -14,6 +14,9 @@ public class MoveWithFloor : MonoBehaviour
     Quaternion actualRot;
     Quaternion lastRot;
 
+    public Vector3 originOffset;
+    public float factorDivision = 4.2f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -26,8 +29,8 @@ public class MoveWithFloor : MonoBehaviour
         {
             RaycastHit hit;
 
-            // Change the SphereCast to a Raycast
-            if (Physics.Raycast(transform.position, Vector3.down, out hit, 10))
+            // Cambiar el SphereCast a Raycast
+            if (Physics.Raycast(transform.position + originOffset, -transform.up, out hit, Player.radius / factorDivision))
             {
                 print("PASS");
                 GameObject groundedIn = hit.collider.gameObject;
@@ -62,6 +65,6 @@ public class MoveWithFloor : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Gizmos.DrawWireSphere(transform.position, Player.height);
+        Gizmos.DrawWireSphere(transform.position + originOffset, Player.radius / factorDivision);
     }
 }
